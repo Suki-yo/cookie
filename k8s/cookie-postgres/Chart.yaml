@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cookie-postgres
+description: PostgreSQL for cookie clicker
+version: 0.1.0

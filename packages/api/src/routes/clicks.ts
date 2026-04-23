@@ -1,15 +1,15 @@
-import type { FastifyInstance } from "fastify";
-import { getScore, incrementScore } from "../db.js";
+import type { FastifyPluginAsync } from "fastify";
+import { getScore as defaultGetScore, incrementScore as defaultIncrementScore } from "../db.js";
 
 type Deps = {
-  getScore: (sessionId: string) => Promise<number>;
-  incrementScore: (sessionId: string) => Promise<number>;
+  getScore?: (sessionId: string) => Promise<number>;
+  incrementScore?: (sessionId: string) => Promise<number>;
 };
 
-export async function clickRoutes(
-  app: FastifyInstance,
-  deps: Deps = { getScore, incrementScore }
-) {
+export const clickRoutes: FastifyPluginAsync<Deps> = async (app, opts) => {
+  const getScore = opts.getScore ?? defaultGetScore;
+  const incrementScore = opts.incrementScore ?? defaultIncrementScore;
+
   app.post<{
     Body: { session_id: string };
     Reply: { score: number };
@@ -33,7 +33,7 @@ export async function clickRoutes(
       },
     },
     async (req, reply) => {
-      const score = await deps.incrementScore(req.body.session_id);
+      const score = await incrementScore(req.body.session_id);
       return reply.send({ score });
     }
   );
@@ -61,8 +61,8 @@ export async function clickRoutes(
       },
     },
     async (req, reply) => {
-      const score = await deps.getScore(req.params.session_id);
+      const score = await getScore(req.params.session_id);
       return reply.send({ score });
     }
   );
-}
+};

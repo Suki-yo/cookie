@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cookie-api
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: cookie-api
+  template:
+    metadata:
+      labels:
+        app: cookie-api
+    spec:
+      containers:
+        - name: cookie-api
+          image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+          env:
+            - name: PGHOST
+              value: {{ .Values.env.pgHost }}
+            - name: PGPORT
+              value: "{{ .Values.env.pgPort }}"
+            - name: PGDATABASE
+              value: {{ .Values.env.pgDatabase }}
+            - name: PGUSER
+              value: {{ .Values.env.pgUser }}
+            - name: PGPASSWORD
+              value: {{ .Values.env.pgPassword }}

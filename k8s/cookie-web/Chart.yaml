@@ -1,0 +1,4 @@
+apiVersion: v2
+name: cookie-web
+description: Web frontend for cookie clicker
+version: 0.1.0
