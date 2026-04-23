@@ -1,7 +1,15 @@
 import type { FastifyInstance } from "fastify";
 import { getScore, incrementScore } from "../db.js";
 
-export async function clickRoutes(app: FastifyInstance) {
+type Deps = {
+  getScore: (sessionId: string) => Promise<number>;
+  incrementScore: (sessionId: string) => Promise<number>;
+};
+
+export async function clickRoutes(
+  app: FastifyInstance,
+  deps: Deps = { getScore, incrementScore }
+) {
   app.post<{
     Body: { session_id: string };
     Reply: { score: number };
@@ -19,15 +27,13 @@ export async function clickRoutes(app: FastifyInstance) {
         response: {
           200: {
             type: "object",
-            properties: {
-              score: { type: "number" },
-            },
+            properties: { score: { type: "number" } },
           },
         },
       },
     },
     async (req, reply) => {
-      const score = await incrementScore(req.body.session_id);
+      const score = await deps.incrementScore(req.body.session_id);
       return reply.send({ score });
     }
   );
@@ -49,15 +55,13 @@ export async function clickRoutes(app: FastifyInstance) {
         response: {
           200: {
             type: "object",
-            properties: {
-              score: { type: "number" },
-            },
+            properties: { score: { type: "number" } },
           },
         },
       },
     },
     async (req, reply) => {
-      const score = await getScore(req.params.session_id);
+      const score = await deps.getScore(req.params.session_id);
       return reply.send({ score });
     }
   );
