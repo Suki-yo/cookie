@@ -3,7 +3,9 @@ const API_URL = "/api";
 function getSessionId(): string {
   let id = localStorage.getItem("session_id");
   if (!id) {
-    id = crypto.randomUUID();
+    id = typeof crypto.randomUUID === "function"
+      ? crypto.randomUUID()
+      : Math.random().toString(36).slice(2) + Date.now().toString(36);
     localStorage.setItem("session_id", id);
   }
   return id;

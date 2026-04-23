@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/suki-yo/cookie-api
-  tag: "latest"
+  tag: "main-f60bd5faba482300639917c550a5b580d6475ec3"
 
 replicas: 1
 
