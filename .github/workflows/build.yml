@@ -45,7 +45,7 @@ jobs:
           context: .
           file: packages/api/Dockerfile
           push: ${{ github.event_name == 'push' }}
-          tags: ghcr.io/${{ github.repository_owner }}/cookie-api:main-${{ github.sha }}
+          tags: ghcr.io/${{ github.repository_owner | lower }}/cookie-api:main-${{ github.sha }}
 
   build-web:
     needs: test-api
@@ -70,5 +70,4 @@ jobs:
           context: .
           file: packages/web/Dockerfile
           push: ${{ github.event_name == 'push' }}
-          tags: ghcr.io/${{ github.repository_owner }}/cookie-web:main-${{ github.sha }}
-
+          tags: ghcr.io/${{ github.repository_owner | lower }}/cookie-web:main-${{ github.sha }}
