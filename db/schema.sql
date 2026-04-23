@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS scores (
+  session_id TEXT PRIMARY KEY,
+  count      BIGINT NOT NULL DEFAULT 0,
+  updated_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
