@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/suki-yo/cookie-web
-  tag: "main-f60bd5faba482300639917c550a5b580d6475ec3"
+  tag: "main-b057a897024aa6a06076309d64acf210da2a1514"
 
 replicas: 1
 
