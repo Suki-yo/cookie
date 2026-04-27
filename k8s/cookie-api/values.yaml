@@ -1,12 +1,9 @@
 image:
   repository: ghcr.io/suki-yo/cookie-api
-  tag: "main-b057a897024aa6a06076309d64acf210da2a1514"
-
+  tag: "main-e94dd88a3bdec1d607075204c93067ee81041832"
 replicas: 1
-
 service:
   port: 3000
-
 env:
   pgHost: cookie-postgres
   pgPort: 5432
