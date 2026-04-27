@@ -53,5 +53,6 @@ spec:
             httpGet:
               path: /realms/master
               port: 8080
-            initialDelaySeconds: 30
+            initialDelaySeconds: 60
             periodSeconds: 10
+            failureThreshold: 6
