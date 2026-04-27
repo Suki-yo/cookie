@@ -1,3 +1,5 @@
+import { getToken } from "./auth.js";
+
 const API_URL = "/api";
 
 function getSessionId(): string {
@@ -11,9 +13,18 @@ function getSessionId(): string {
   return id;
 }
 
+async function authHeaders(): Promise<Record<string, string>> {
+  const token = await getToken();
+  return token
+    ? { "Content-Type": "application/json", Authorization: `Bearer ${token}` }
+    : { "Content-Type": "application/json" };
+}
+
 export async function fetchScore(): Promise<number> {
   const sessionId = getSessionId();
-  const res = await fetch(`${API_URL}/score/${sessionId}`);
+  const res = await fetch(`${API_URL}/score/${sessionId}`, {
+    headers: await authHeaders(),
+  });
   if (!res.ok) throw new Error("Failed to fetch score");
   const data = (await res.json()) as { score: number };
   return data.score;
@@ -23,7 +34,7 @@ export async function postClick(): Promise<number> {
   const sessionId = getSessionId();
   const res = await fetch(`${API_URL}/click`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: await authHeaders(),
     body: JSON.stringify({ session_id: sessionId }),
   });
   if (!res.ok) throw new Error("Failed to post click");

@@ -1,12 +1,7 @@
 import postgres from "postgres";
+import { config } from "./config.js";
 
-const sql = postgres({
-  host: process.env.PGHOST ?? "localhost",
-  port: Number(process.env.PGPORT ?? 5432),
-  database: process.env.PGDATABASE ?? "cookie",
-  username: process.env.PGUSER ?? "cookie",
-  password: process.env.PGPASSWORD ?? "cookie",
-});
+const sql = postgres(config.db);
 
 export async function getScore(sessionId: string): Promise<number> {
   const rows = await sql<{ count: bigint }[]>`

@@ -1,0 +1,22 @@
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "24.0"
+
+admin:
+  username: admin
+  password: admin
+
+db:
+  host: keycloak-postgres
+  port: 5432
+  database: keycloak
+  username: keycloak
+  password: keycloak
+
+replicas: 1
+
+service:
+  port: 8080
+
+ingress:
+  host: keycloak.local

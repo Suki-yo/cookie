@@ -1,0 +1,14 @@
+image:
+  repository: postgres
+  tag: "16-alpine"
+
+auth:
+  database: keycloak
+  username: keycloak
+  password: keycloak
+
+storage:
+  size: 1Gi
+
+service:
+  port: 5432
