@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/suki-yo/cookie-web
-  tag: "main-130be1d00718cdb319bb0c268d3ecc558319a7c9"
+  tag: "main-73f1c230e5d90e5c5442b3304192d31f8677dc25"
 replicas: 1
 service:
   port: 80
