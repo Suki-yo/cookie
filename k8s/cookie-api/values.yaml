@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/suki-yo/cookie-api
-  tag: "main-0c06a19be9bd10eaae818cf1dae44120fd394343"
+  tag: "main-631b4268c0c1caafac8f4b39355d9aecf421a0fa"
 replicas: 1
 service:
   port: 3000
